@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import Login from './components/member/Login';
 import Join from './components/member/Join';
-import Map from './components/map/Map';
+import MapContainer from './components/map/MapContainer';
 
 function Copyright() {
   return (
@@ -26,7 +26,7 @@ const AppRouter = () => {
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/map" element={<Map />} />
+          <Route path="/map" element={<MapContainer />} />
         </Routes>
       </BrowserRouter>
       <Box mt={5}>

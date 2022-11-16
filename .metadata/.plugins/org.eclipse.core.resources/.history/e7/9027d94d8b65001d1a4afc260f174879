@@ -1,0 +1,5 @@
+package com.spring.clinicMap.service.impl;
+
+public class MemberServiceImpl {
+
+}

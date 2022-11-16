@@ -1,0 +1,5 @@
+package com.spring.clinicMap.configuration;
+
+public class DataConfigration {
+
+}

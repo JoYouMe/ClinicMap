@@ -62,25 +62,27 @@ const MapContainer = () => {
         infowindow.open(map, marker);
 
         // 지도 중심좌표를 접속위치로 변경
-        map.setCenter(locPosition);
+        if (map !== undefined) {
+          map.setCenter(locPosition);
 
-        kakao.maps.event.addListener(map, 'dragend', function () {
-          // 지도의 현재 레벨
-          let level = map.getLevel();
+          kakao.maps.event.addListener(map, 'dragend', function () {
+            // 지도의 현재 레벨
+            let level = map.getLevel();
 
-          // 지도 영역정보를 얻어옵니다
-          let bounds = map.getBounds();
+            // 지도 영역정보를 얻어옵니다
+            let bounds = map.getBounds();
 
-          // 영역정보의 남서쪽 정보를 얻어옵니다
-          let swLatlng = bounds.getSouthWest();
+            // 영역정보의 남서쪽 정보를 얻어옵니다
+            let swLatlng = bounds.getSouthWest();
 
-          // 영역정보의 북동쪽 정보를 얻어옵니다
-          let neLatlng = bounds.getNorthEast();
+            // 영역정보의 북동쪽 정보를 얻어옵니다
+            let neLatlng = bounds.getNorthEast();
 
-          // 지도 중심
-          let latlng = map.getCenter();
-          getClinicInfo(latlng.getLat(), latlng.getLng());
-        });
+            // 지도 중심
+            let latlng = map.getCenter();
+            getClinicInfo(latlng.getLat(), latlng.getLng());
+          });
+        }
       });
     } else {
     }
@@ -96,13 +98,12 @@ const MapContainer = () => {
     return marker;
   }
 
-  // 데이터 변경시 마커 찍기
   useEffect(() => {
     // 클릭 이벤트
-    const onClickMaker = (a, b) => {
-      setClinicItem(clinicInfo);
+    const onClickMaker = (item) => {
+      setClinicItem(item);
     };
-
+    // 데이터 변경시 마커 찍기
     for (let i = 0; i < clinicInfo.length; i++) {
       let position = new kakao.maps.LatLng(
         clinicInfo[i].YPos,
@@ -111,7 +112,7 @@ const MapContainer = () => {
       // 클릭 이벤트
       let marker = displayMarker(position);
       kakao.maps.event.addListener(marker, 'click', function () {
-        onClickMaker(clinicInfo[i].YPos, clinicInfo[i].XPos);
+        onClickMaker(clinicInfo[i]);
       });
     }
   }, [clinicInfo]);

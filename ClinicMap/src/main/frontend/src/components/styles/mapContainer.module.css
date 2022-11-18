@@ -1,0 +1,16 @@
+.kakaoMap {
+  width: 80%;
+  height: 500px;
+}
+
+.saveClinicList {
+  width: 30%;
+  height: 500px;
+  background-color: rgb(29, 146, 107);
+}
+
+.clinicDetail {
+  width: 80%;
+  height: 300px;
+  background-color: thistle;
+}

@@ -1,7 +1,6 @@
 //fetch를 처리해주는 함수를 만들어서 export
 import { API_BASE_URL } from '../app-config';
 
-//api = "/api/todo/selectTodoList"
 //method = "GET", "POST", "PUT", "DELETE"
 //request는 백엔드로 보내줄 데이터
 export function call(api, method, request) {

@@ -2,4 +2,8 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="com.spring.clinicMap.entity.Member"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="javax.persistence.Table"/>
+    <fullyQualifiedTypeName name="javax.persistence.Entity"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="javax.persistence.Id"/>
 </qualifiedTypeNameHistroy>

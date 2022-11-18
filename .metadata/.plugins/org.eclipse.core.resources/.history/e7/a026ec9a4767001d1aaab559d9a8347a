@@ -1,0 +1,5 @@
+package com.spring.clinicMap.entity;
+
+public class SaveClinic {
+
+}

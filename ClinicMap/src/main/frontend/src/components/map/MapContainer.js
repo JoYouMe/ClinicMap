@@ -9,6 +9,7 @@ const MapContainer = () => {
   const [clinicInfo, setClinicInfo] = useState([]);
   const [map, setMap] = useState();
   const [clinicItem, setClinicItem] = useState({});
+  const [saveBtn, setSaveBtn] = useState();
 
   // clinic 정보 가져옴
   const getClinicInfo = useCallback((y, x) => {
@@ -119,17 +120,25 @@ const MapContainer = () => {
 
   return (
     <div>
-      <div>
-        <div className={styles.kakaoMap} id="kakaoMap"></div>
-        <div className={styles.saveClinicList}>
-          <p>리스트</p>
+      <div className={styles.containerTop}>
+        <h1>CLINIC MAP 🩺</h1>
+        <div className={styles.aa}>
+          <div className={styles.kakaoMap} id="kakaoMap"></div>
+          <div className={styles.saveClinicList}>
+            <h3>병원 정보 저장 목록</h3>
+          </div>
         </div>
       </div>
       <div className={styles.clinicDetail}>
-        <p>세부 내용</p>
+        <h3>병원 정보</h3>
         <p>{clinicItem.yadmNm}</p>
         <p>{clinicItem.addr}</p>
         <p>{clinicItem.telno}</p>
+        {Object.keys(clinicItem).length !== 0 ? (
+          <button>저장</button>
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );

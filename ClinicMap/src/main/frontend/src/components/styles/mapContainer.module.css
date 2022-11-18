@@ -1,16 +1,40 @@
+.containerTop {
+  width: 100%;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.aa {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 500px;
+}
+
 .kakaoMap {
-  width: 80%;
+  width: 70%;
   height: 500px;
 }
 
 .saveClinicList {
   width: 30%;
-  height: 500px;
+  height: 1000px;
   background-color: rgb(29, 146, 107);
 }
 
 .clinicDetail {
-  width: 80%;
+  width: 70%;
   height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: thistle;
 }

@@ -1,0 +1,10 @@
+package com.spring.clinicMap.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.spring.clinicMap.entity.MyClinic;
+
+
+public interface MyClinicRepository extends JpaRepository<MyClinic, String>{
+	//List<MyClinic> findByUserId(Member member);
+}

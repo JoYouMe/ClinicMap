@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 //요청이 왔을 때 함께 전달해오는 token을 받아서 유효성 검사를 하고
-//token 안에서 username을 꺼내서 사용하기 위한 필터
+//token 안에서 userId을 꺼내서 사용하기 위한 필터
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	@Autowired

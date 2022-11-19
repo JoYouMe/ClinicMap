@@ -14,10 +14,10 @@ const Join = () => {
     e.preventDefault();
 
     const data = new FormData(e.target);
-    const username = data.get('username');
+    const userId = data.get('userId');
     const password = data.get('password');
 
-    join({ username: username, password: password }).then((response) => {
+    join({ userId: userId, password: password }).then((response) => {
       //회원가입 성공 시 로그인페이지로 이동
       window.location.href = '/login';
     });
@@ -34,11 +34,11 @@ const Join = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              name="username"
+              name="userId"
               variant="outlined"
               required
               fullWidth
-              id="username"
+              id="userId"
               label="아이디"
               autoFocus
             />

@@ -36,9 +36,9 @@ public class JwtTokenProvider {
 				.signWith(key, SignatureAlgorithm.HS256)
 				//payload에 들어갈 내용
 				//토큰의 주체
-				.setSubject(member.getUsername()) //sub
+				.setSubject(member.getUserId()) //sub
 				//토큰 발행 주체
-				.setIssuer("todo app") //iss
+				.setIssuer("ClinicMap app") //iss
 				//토큰 발행 일자
 				.setIssuedAt(new Date()) //isa
 				//토큰 만료 일자
@@ -56,7 +56,7 @@ public class JwtTokenProvider {
 				.parseClaimsJws(token)
 				.getBody();
 		
-		//일치하면 토큰의 주체 즉 username 리턴
+		//일치하면 토큰의 주체 즉 userId 리턴
 		return claims.getSubject();
 	}
 }

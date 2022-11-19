@@ -9,7 +9,7 @@ const Login = () => {
   const login = (member) => {
     axios({
       method: 'post',
-      url: API_BASE_URL + '/api/member/login',
+      url: API_BASE_URL + '/login',
       data: member,
     }).then((response) => {
       console.log(response);
@@ -23,11 +23,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    const username = data.get('username');
+    const userId = data.get('userId');
     const password = data.get('password');
 
     //member
-    login({ username: username, password: password });
+    login({ userId: userId, password: password });
   };
 
   return (
@@ -47,9 +47,9 @@ const Login = () => {
               variant="outlined"
               required
               fullWidth
-              id="username"
+              id="userId"
               label="아이디"
-              name="username"
+              name="userId"
             />
           </Grid>
           <Grid item xs={12}>

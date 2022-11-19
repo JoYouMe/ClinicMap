@@ -1,0 +1,13 @@
+package com.spring.clinicMap.entity;
+
+import java.io.Serializable;
+
+import lombok.Data;
+
+@Data
+public class MyClinicId implements Serializable{
+	
+	private String member;
+	
+	private String ykiho;
+}

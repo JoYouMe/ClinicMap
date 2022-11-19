@@ -8,7 +8,8 @@ import com.spring.clinicMap.entity.Member;
 import com.spring.clinicMap.repository.MemberRepository;
 import com.spring.clinicMap.service.MemberService;
 
-@Service
+// @Service 빈: 기능을 정의, 트랜잭션을 관리
+@Service 
 public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberRepository memberRepository;
@@ -19,23 +20,22 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member join(Member member) {
 		//Member 유효성 검사
-		if(member == null || member.getUsername() == null) {
+		if(member == null || member.getUserId() == null) {
 			throw new RuntimeException("Invalid Argument");
 		}
 		
-		//username 중복체크
-		if(memberRepository.existsByUsername(member.getUsername())) {
-			throw new RuntimeException("username already exists");
+		//userId 중복체크
+		if(memberRepository.existsByUserId(member.getUserId())) {
+			throw new RuntimeException("ID already exists");
 		}
 		
 		return memberRepository.save(member);
 	}
 	
 	@Override
-	public Member login(String username, String password) {
-//		return memberRepository.findByUsernameAndPassword(username, password);
+	public Member login(String userId, String password) {
 		
-		Member loginMember = memberRepository.findByUsername(username);
+		Member loginMember = memberRepository.findByUserId(userId);
 		
 		if(loginMember != null && passwordEncoder.matches(password, loginMember.getPassword())) {
 			return loginMember;

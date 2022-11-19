@@ -4,13 +4,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.spring.clinicMap.entity.Member;
 
+// @Repository 적어야 스프링 ioC에 빈으로 등록이 되지만
+// JpaRepository를 extends하면 생략 가능함
+// JpaRepository는 CRUD 함수를 가지고 있음
 public interface MemberRepository extends JpaRepository<Member, String> {
-	//username 중복 체크
-	Boolean existsByUsername(String username);
+	//userId 중복 체크
+	Boolean existsByUserId(String userId);
 			
 	//로그인 처리
-	//Member findByUsernameAndPassword(String username, String password);
+	Member findByUserIdAndPassword(String userId, String password);
 			
 	//비밀번호 일치 여부는 passwordEncoder로 진행
-	Member findByUsername(String username);
+	Member findByUserId(String userId);
 }

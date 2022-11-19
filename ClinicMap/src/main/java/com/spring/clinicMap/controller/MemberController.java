@@ -14,10 +14,8 @@ import com.spring.clinicMap.entity.Member;
 import com.spring.clinicMap.jwt.JwtTokenProvider;
 import com.spring.clinicMap.service.MemberService;
 
-
-
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("")
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
@@ -39,8 +37,7 @@ public class MemberController {
 			MemberDTO memberDTO = new MemberDTO();
 			 
 			//member는 리스트로 리턴되는 게 아니여서 responseBody에 memberDTO를 담아서 리턴
-			memberDTO.setId(joinMember.getId());
-			memberDTO.setUsername(joinMember.getUsername());
+			memberDTO.setUserId(joinMember.getUserId());
 			memberDTO.setRole(joinMember.getRole());
 			
 			return ResponseEntity.ok().body(memberDTO);
@@ -55,15 +52,14 @@ public class MemberController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Member member) {
 		//로그인 한 Member 객체 생성
-		Member loginMember = memberService.login(member.getUsername(), member.getPassword());
+		Member loginMember = memberService.login(member.getUserId(), member.getPassword());
 		if(loginMember != null) {
 			//로그인된 유저에 대한 토큰 발행
 			final String token = jwtTokenProvider.create(loginMember);
 			
 			//리턴해줄 MemberDTO 객체 생성
 			final MemberDTO memberDTO = new MemberDTO();
-			memberDTO.setId(loginMember.getId());
-			memberDTO.setUsername(loginMember.getUsername());
+			memberDTO.setUserId(loginMember.getUserId());
 			memberDTO.setRole(loginMember.getRole());
 			//발행된 토큰 DTO에 담아서 리턴
 			memberDTO.setToken(token);

@@ -1,0 +1,18 @@
+package com.spring.clinicMap.service.impl;
+
+
+
+//@Service
+//public class MyClinicServiceImpl implements MyClinicService {
+//	
+//	@Autowired
+//	MyClinicRepository myClinicRepository;
+//	
+//	@Override
+//	public MyClinic submitClinic(MyClinic myclinic) {
+//		MyClinicId myClinicId = new MyClinicId();
+//		
+//		return null;
+//	}
+//
+//}

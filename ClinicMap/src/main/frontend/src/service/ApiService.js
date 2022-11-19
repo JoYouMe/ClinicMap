@@ -31,7 +31,7 @@ export function call(api, method, request) {
   //fetch 실행 후 결과 값 리턴
   return fetch(options.url, options).then((response) => {
     if (response.status === 403) {
-      window.location.href = '/login'; //백에서 가져올때만 /api/ 붙임
+      window.location.href = '/login';
     }
 
     response.json().then((json) => {
@@ -47,12 +47,12 @@ export function call(api, method, request) {
 
 //회원가입
 export function join(member) {
-  return call('/api/member/join', 'POST', member);
+  return call('/join', 'POST', member);
 }
 
 //로그인
 export function login(member) {
-  return call('/api/member/login', 'POST', member).then((response) => {
+  return call('/login', 'POST', member).then((response) => {
     console.log(response);
     alert(response.token);
     //토큰이 존재하면 Map으로 이동

@@ -1,0 +1,15 @@
+package com.spring.clinicMap.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.spring.clinicMap.entity.Member;
+import com.spring.clinicMap.entity.MyClinic;
+
+//@Repository 적어야 스프링 ioC에 빈으로 등록이 되지만
+//JpaRepository를 extends하면 생략 가능함
+//JpaRepository는 CRUD 함수를 가지고 있음
+public interface MyClinicRepository extends JpaRepository<MyClinic, String>{
+	List<MyClinic> findByUserId(Member member);
+}

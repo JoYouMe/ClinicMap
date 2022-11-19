@@ -1,0 +1,17 @@
+package com.spring.clinicMap.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Table(name="T_MYCLINIC")
+@Entity
+@Data
+public class MyClinic {
+	@Id
+	private String userId;
+	@Id
+	private String ykiho;
+}

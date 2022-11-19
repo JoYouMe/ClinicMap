@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
+import { API_BASE_URL } from '../../app-config';
 import styles from '../styles/mapContainer.module.css';
 
 // window 전역 객체에 들어간 kakao 객체를 사용
@@ -9,7 +10,38 @@ const MapContainer = () => {
   const [clinicInfo, setClinicInfo] = useState([]);
   const [map, setMap] = useState();
   const [clinicItem, setClinicItem] = useState({});
-  const [saveBtn, setSaveBtn] = useState();
+  const [myClinic, setMyClinic] = useState([]);
+
+  // 병원 정보 저장
+  const submitClinic = () => {
+    axios({
+      method: 'post',
+      url: API_BASE_URL + '/submit',
+      data: clinicItem,
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
+      },
+    }).then((response) => {
+      console.log(response);
+    });
+  };
+
+  // 저장한 병원 정보 삭제
+  /** 
+  const removeClinic = useCallback(() => {
+    const clinicmap = {};
+    axios({
+      method: 'delete',
+      url: API_BASE_URL + '/remove',
+      data: clinicItem,
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
+      },
+    }).then((response) => {
+      setMyClinic(response.data);
+    });
+  }, []);
+  */
 
   // clinic 정보 가져옴
   const getClinicInfo = useCallback((y, x) => {
@@ -135,7 +167,9 @@ const MapContainer = () => {
         <p>{clinicItem.addr}</p>
         <p>{clinicItem.telno}</p>
         {Object.keys(clinicItem).length !== 0 ? (
-          <button>저장</button>
+          <button type="button" onClick={submitClinic}>
+            저장
+          </button>
         ) : (
           <div></div>
         )}

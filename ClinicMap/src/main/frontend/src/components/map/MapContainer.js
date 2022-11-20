@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { API_BASE_URL } from '../../app-config';
 import styles from '../styles/mapContainer.module.css';
+import MyClinicList from './MyClinicList';
 
 // window 전역 객체에 들어간 kakao 객체를 사용
 const { kakao } = window;
@@ -10,10 +11,9 @@ const MapContainer = () => {
   const [clinicInfo, setClinicInfo] = useState([]);
   const [map, setMap] = useState();
   const [clinicItem, setClinicItem] = useState({});
-  const [myClinic, setMyClinic] = useState([]);
 
   // 병원 정보 저장
-  const submitClinic = () => {
+  const submitClinic = (clinicItem) => {
     axios({
       method: 'post',
       url: API_BASE_URL + '/submit',
@@ -25,23 +25,6 @@ const MapContainer = () => {
       console.log(response);
     });
   };
-
-  // 저장한 병원 정보 삭제
-  /** 
-  const removeClinic = useCallback(() => {
-    const clinicmap = {};
-    axios({
-      method: 'delete',
-      url: API_BASE_URL + '/remove',
-      data: clinicItem,
-      headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
-      },
-    }).then((response) => {
-      setMyClinic(response.data);
-    });
-  }, []);
-  */
 
   // clinic 정보 가져옴
   const getClinicInfo = useCallback((y, x) => {
@@ -154,10 +137,11 @@ const MapContainer = () => {
     <div>
       <div className={styles.containerTop}>
         <h1>CLINIC MAP 🩺</h1>
-        <div className={styles.aa}>
+        <div className={styles.containerMiddle}>
           <div className={styles.kakaoMap} id="kakaoMap"></div>
           <div className={styles.saveClinicList}>
-            <h3>병원 정보 저장 목록</h3>
+            <h3>병원 저장 목록</h3>
+            <MyClinicList submitClinic={submitClinic} />
           </div>
         </div>
       </div>

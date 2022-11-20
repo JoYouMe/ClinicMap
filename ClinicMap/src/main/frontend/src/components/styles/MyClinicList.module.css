@@ -1,0 +1,21 @@
+.myClinicTop {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.myClinicCard {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 150px;
+  background-color: gainsboro;
+  border-radius: 10px;
+  padding: 10px;
+}

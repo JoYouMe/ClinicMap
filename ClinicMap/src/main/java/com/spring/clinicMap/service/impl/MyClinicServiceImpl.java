@@ -1,6 +1,8 @@
 package com.spring.clinicMap.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.spring.clinicMap.entity.MyClinic;
@@ -17,6 +19,17 @@ public class MyClinicServiceImpl implements MyClinicService {
 	public MyClinic submitClinic (MyClinic myclinic) {
 		return myClinicRepository.save(myclinic);
 		
+	}
+
+	@Override
+	public void deleteClinic(MyClinic myclinic) {
+		myClinicRepository.delete(myclinic);
+	}
+
+	@Override
+	public Page<MyClinic> getMyClinicList(Pageable pageable) {
+		return myClinicRepository.findAll(pageable)
+				;
 	}
 
 }

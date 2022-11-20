@@ -11,9 +11,15 @@ const MapContainer = () => {
   const [clinicInfo, setClinicInfo] = useState([]);
   const [map, setMap] = useState();
   const [clinicItem, setClinicItem] = useState({});
+  const [myClinicList, setMyClinicList] = useState([]);
+
+  useEffect(() => {
+    getClinicList();
+  }, []);
 
   // 병원 정보 저장
-  const submitClinic = (clinicItem) => {
+  const submitClinic = () => {
+    console.log(clinicItem);
     axios({
       method: 'post',
       url: API_BASE_URL + '/submit',
@@ -23,8 +29,40 @@ const MapContainer = () => {
       },
     }).then((response) => {
       console.log(response);
+      getClinicList();
     });
   };
+  const getClinicList = () => {
+    // 저장된 병원 정보 반환
+    axios({
+      method: 'get',
+      url: API_BASE_URL + '/getMyClinicList',
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
+      },
+    }).then((response) => {
+      console.log(response);
+      setMyClinicList(response.data.myClinicList.content);
+    });
+  };
+
+  // 저장한 병원 정보 삭제
+  const deleteClinic = useCallback(
+    (clinicItem) => {
+      axios({
+        method: 'post',
+        url: API_BASE_URL + '/delete',
+        data: clinicItem,
+        headers: {
+          Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
+        },
+      }).then((response) => {
+        alert('삭제되었습니다');
+        getClinicList();
+      });
+    },
+    [clinicItem]
+  );
 
   // clinic 정보 가져옴
   const getClinicInfo = useCallback((y, x) => {
@@ -141,7 +179,11 @@ const MapContainer = () => {
           <div className={styles.kakaoMap} id="kakaoMap"></div>
           <div className={styles.saveClinicList}>
             <h3>병원 저장 목록</h3>
-            <MyClinicList submitClinic={submitClinic} />
+            <MyClinicList
+              deleteClinic={deleteClinic}
+              getClinicList={getClinicList}
+              myClinicList={myClinicList}
+            />
           </div>
         </div>
       </div>

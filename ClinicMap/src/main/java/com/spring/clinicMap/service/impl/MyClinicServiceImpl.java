@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.spring.clinicMap.entity.Member;
 import com.spring.clinicMap.entity.MyClinic;
+import com.spring.clinicMap.entity.MyClinicId;
 import com.spring.clinicMap.repository.MyClinicRepository;
 import com.spring.clinicMap.service.MyClinicService;
 
@@ -16,19 +18,19 @@ public class MyClinicServiceImpl implements MyClinicService {
 	MyClinicRepository myClinicRepository;
 	
 	@Override
-	public MyClinic submitClinic (MyClinic myclinic) {
+	public MyClinic submitClinic(MyClinic myclinic) {
 		return myClinicRepository.save(myclinic);
 		
 	}
 
 	@Override
-	public void deleteClinic(MyClinic myclinic) {
-		myClinicRepository.delete(myclinic);
+	public void deleteClinic(MyClinicId myclinicId) {
+		myClinicRepository.deleteById(myclinicId);
 	}
 
 	@Override
-	public Page<MyClinic> getMyClinicList(Pageable pageable) {
-		return myClinicRepository.findAll(pageable)
+	public Page<MyClinic> getMyClinicList(Member member, Pageable pageable) {
+		return myClinicRepository.findByMember(member, pageable)
 				;
 	}
 

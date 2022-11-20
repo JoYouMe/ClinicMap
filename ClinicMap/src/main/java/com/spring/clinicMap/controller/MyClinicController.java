@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.clinicMap.entity.Member;
 import com.spring.clinicMap.entity.MyClinic;
+import com.spring.clinicMap.entity.MyClinicId;
 import com.spring.clinicMap.service.MyClinicService;
 
 @RestController
@@ -31,6 +31,7 @@ public class MyClinicController {
 		try {
 			Member member = new Member();
 			member.setUserId(userId);
+			System.out.println(myclinic.getYadmNm());
 			
 			myclinic.setMember(member);
 			MyClinic saveClinic = myClinicService.submitClinic(myclinic);
@@ -48,11 +49,13 @@ public class MyClinicController {
 	}
 	
 	@GetMapping("/getMyClinicList")
-	public ResponseEntity<?> getMyClinicList(@AuthenticationPrincipal String userId, @PageableDefault(page = 0, size = 8, sort="shareIdx", direction = Direction.DESC) Pageable pageable){
+	public ResponseEntity<?> getMyClinicList(@AuthenticationPrincipal String userId, @PageableDefault(page = 0, size = 8, direction = Direction.DESC) Pageable pageable){
 		try {
-			Map<String, Object> response = new HashMap<String, Object>();
+			Member member = new Member();
+			member.setUserId(userId);
 			
-			Page<MyClinic> myClinicList = myClinicService.getMyClinicList(pageable);
+			Map<String, Object> response = new HashMap<String, Object>();
+			Page<MyClinic> myClinicList = myClinicService.getMyClinicList(member, pageable);
 			
 			response.put("myClinicList", myClinicList);
 			
@@ -68,14 +71,23 @@ public class MyClinicController {
 	
 	
 	
-	@DeleteMapping("/delete")
-	public void deleteMyClinic(@RequestBody MyClinic myclinic) {
+	@PostMapping("/delete")
+	public ResponseEntity<?> deleteMyClinic(@RequestBody MyClinic myclinic, @AuthenticationPrincipal String userId) {
 		try {
-			myClinicService.deleteClinic(myclinic);
+			System.out.println(myclinic.getYkiho());
+			MyClinicId myClinicId = new MyClinicId();
+			myClinicId.setMember(userId);
+			myClinicId.setYkiho(myclinic.getYkiho());
+			
+			myClinicService.deleteClinic(myClinicId);
+			
+			Map<String, Object> response = new HashMap<String, Object>();
+			return ResponseEntity.ok().body(response);
 			
 		}catch(Exception e) {
 			Map<String, Object> errorMap = new HashMap<String, Object>();
 			errorMap.put("error", e.getMessage());
+			return ResponseEntity.badRequest().body(errorMap);
 		}
 	}
 	

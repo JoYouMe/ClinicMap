@@ -14,7 +14,7 @@ const MapContainer = () => {
   const [myClinicList, setMyClinicList] = useState([]);
 
   useEffect(() => {
-    getClinicList();
+    getClinicList(0);
   }, []);
 
   // 병원 정보 저장
@@ -32,17 +32,17 @@ const MapContainer = () => {
       getClinicList();
     });
   };
-  const getClinicList = () => {
+  const getClinicList = (page) => {
     // 저장된 병원 정보 반환
     axios({
       method: 'get',
-      url: API_BASE_URL + '/getMyClinicList',
+      url: API_BASE_URL + '/getMyClinicList?page=' + page,
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
       },
     }).then((response) => {
       console.log(response);
-      setMyClinicList(response.data.myClinicList.content);
+      setMyClinicList([...myClinicList, ...response.data.myClinicList.content]);
     });
   };
 
@@ -67,7 +67,7 @@ const MapContainer = () => {
   // clinic 정보 가져옴
   const getClinicInfo = useCallback((y, x) => {
     axios({
-      url: `https://apis.data.go.kr/B551182/hospInfoServicev2/getHospBasisList?ServiceKey=VOCMrLKUaPto%2BKFS%2Ftt8cOiGKcecvqtjqzPiVicYLv1gpRiujBwiqLWaxGkzi8Gl9hp5O%2B%2Bhqb8BQInhgR5kvA%3D%3D&xPos=${x}&yPos=${y}&radius=5000`,
+      url: `https://apis.data.go.kr/B551182/hospInfoServicev2/getHospBasisList?ServiceKey=VOCMrLKUaPto%2BKFS%2Ftt8cOiGKcecvqtjqzPiVicYLv1gpRiujBwiqLWaxGkzi8Gl9hp5O%2B%2Bhqb8BQInhgR5kvA%3D%3D&numOfRows=200&xPos=${x}&yPos=${y}&radius=5000`,
       method: 'get',
     }).then((response) => {
       console.log(response);

@@ -49,7 +49,7 @@ public class MyClinicController {
 	}
 	
 	@GetMapping("/getMyClinicList")
-	public ResponseEntity<?> getMyClinicList(@AuthenticationPrincipal String userId, @PageableDefault(page = 0, size = 8, direction = Direction.DESC) Pageable pageable){
+	public ResponseEntity<?> getMyClinicList(@AuthenticationPrincipal String userId, @PageableDefault(page = 0, size = 4, direction = Direction.DESC) Pageable pageable){
 		try {
 			Member member = new Member();
 			member.setUserId(userId);

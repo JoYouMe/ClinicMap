@@ -15,7 +15,7 @@ const Login = () => {
       console.log(response);
       if (response.data.token) {
         sessionStorage.setItem('ACCESS_TOKEN', response.data.token);
-        window.location.href = '/';
+        window.location.href = '/map';
       }
     });
   };

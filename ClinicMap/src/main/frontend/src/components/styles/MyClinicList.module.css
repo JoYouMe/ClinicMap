@@ -14,12 +14,20 @@ h3 {
   display: flex;
   flex-direction: column;
   width: 80%;
-  height: 160px;
-  background-color: gainsboro;
+  height: 180px;
+  background-color: rgb(237, 233, 233);
   border-radius: 10px;
   padding: 5px 10px;
   line-height: 1;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.myClinicCard:hover {
+  transition: all 0.3s ease;
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  box-shadow: 4px 12px 20px 6px rgb(0 0 0 / 18%);
 }
 
 .myClinicCard p {

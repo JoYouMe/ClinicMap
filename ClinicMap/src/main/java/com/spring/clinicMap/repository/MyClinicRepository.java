@@ -10,5 +10,6 @@ import com.spring.clinicMap.entity.MyClinicId;
 
 
 public interface MyClinicRepository extends JpaRepository<MyClinic, MyClinicId>{
+	
 	Page<MyClinic> findByMember(Member member, Pageable pageable);
 }

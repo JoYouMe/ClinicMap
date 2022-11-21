@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.clinicMap.entity.Member;
 import com.spring.clinicMap.entity.MyClinic;
 import com.spring.clinicMap.entity.MyClinicId;
+import com.spring.clinicMap.repository.MyClinicRepository;
 import com.spring.clinicMap.service.MyClinicService;
 
 @RestController
@@ -26,19 +27,31 @@ public class MyClinicController {
 	@Autowired
 	MyClinicService myClinicService;
 	
+	@Autowired
+	MyClinicRepository myClinicRepository;
+	
 	@PostMapping("/submit")
 	public ResponseEntity<?> submitClinic(@RequestBody MyClinic myclinic, @AuthenticationPrincipal String userId){
 		try {
 			Member member = new Member();
 			member.setUserId(userId);
-			System.out.println(myclinic.getYadmNm());
+			System.out.println(myclinic.getAddr());
 			
 			myclinic.setMember(member);
-			MyClinic saveClinic = myClinicService.submitClinic(myclinic);
+			
+			MyClinic myClinicitem  = myClinicService.clinicItem(member, myclinic);
 			
 			Map<String, Object> response = new HashMap<String, Object>();
-			response.put("saveClinic", saveClinic);
-			return ResponseEntity.ok().body(response);
+			
+			if(myClinicitem == null) {
+				MyClinic saveClinic = myClinicService.submitClinic(myclinic);
+				response.put("saveClinic", saveClinic);
+				response.put("MyClinicItem", "saveClinic");
+				return ResponseEntity.ok().body(response);
+			}else {
+				response.put("MyClinicItem", "overlap"); 
+				return ResponseEntity.ok().body(response);
+			}
 			
 		}catch(Exception e) {
 			Map<String, Object> errorMap = new HashMap<String, Object>();

@@ -19,7 +19,7 @@ const Join = () => {
 
     join({ userId: userId, password: password }).then((response) => {
       //회원가입 성공 시 로그인페이지로 이동
-      window.location.href = '/login';
+      window.location.href = '/';
     });
   };
 
@@ -62,7 +62,7 @@ const Join = () => {
         </Grid>
         <Grid Container justifyContent="flex-end">
           <Grid item>
-            <Link href="/login" variant="body2">
+            <Link href="/" variant="body2">
               이미 계정이 있습니까? 로그인하세요.
             </Link>
           </Grid>

@@ -29,7 +29,11 @@ const MapContainer = () => {
       },
     }).then((response) => {
       console.log(response);
-      getClinicList();
+      if (response.data.MyClinicItem === 'saveClinic') {
+        setMyClinicList([...myClinicList, response.data.saveClinic]);
+      } else {
+        alert('저장된 병원입니다');
+      }
     });
   };
   const getClinicList = (page) => {

@@ -12,11 +12,17 @@ public interface MyClinicService {
 	// 병원 정보 저장
 	MyClinic submitClinic(MyClinic myclinic);
 	
+	// 병원 정보 중복 방지
+	MyClinic clinicItem(Member member, MyClinic myclinic);
+	
 	// 저장된 병원 목록
 	Page<MyClinic> getMyClinicList(Member member,Pageable pageable);
 	
 	// 병원 정보 삭제
 	void deleteClinic(MyClinicId myclinicId);
+
+	
+	
 	
 	
 }

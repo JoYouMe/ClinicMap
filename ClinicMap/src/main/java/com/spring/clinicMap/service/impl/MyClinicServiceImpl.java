@@ -19,10 +19,11 @@ public class MyClinicServiceImpl implements MyClinicService {
 	
 	@Override
 	public MyClinic submitClinic(MyClinic myclinic) {
+		
 		return myClinicRepository.save(myclinic);
 		
 	}
-
+	
 	@Override
 	public void deleteClinic(MyClinicId myclinicId) {
 		myClinicRepository.deleteById(myclinicId);
@@ -30,8 +31,20 @@ public class MyClinicServiceImpl implements MyClinicService {
 
 	@Override
 	public Page<MyClinic> getMyClinicList(Member member, Pageable pageable) {
-		return myClinicRepository.findByMember(member, pageable)
-				;
+		return myClinicRepository.findByMember(member, pageable);
+				
+	}
+
+	@Override
+	public MyClinic clinicItem(Member member, MyClinic myclinic) {
+		MyClinicId myClinicId = new MyClinicId();
+		myClinicId.setYkiho(myclinic.getYkiho());
+		myClinicId.setMember(member.getUserId());
+		if(myClinicRepository.findById(myClinicId).isEmpty()) {
+			return null;
+		}else {
+			return myClinicRepository.findById(myClinicId).get();
+		}
 	}
 
 }

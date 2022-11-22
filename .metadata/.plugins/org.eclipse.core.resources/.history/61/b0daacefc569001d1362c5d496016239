@@ -15,6 +15,7 @@ import com.spring.clinicMap.jwt.JwtTokenProvider;
 import com.spring.clinicMap.service.MemberService;
 
 @RestController
+@RequestMapping("")
 public class MemberController {
 	@Autowired
 	private MemberService memberService;

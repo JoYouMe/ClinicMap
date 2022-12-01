@@ -51,22 +51,21 @@ const MapContainer = () => {
   };
 
   // 저장한 병원 정보 삭제
-  const deleteClinic = useCallback(
-    (clinicItem) => {
-      axios({
-        method: 'post',
-        url: API_BASE_URL + '/delete',
-        data: clinicItem,
-        headers: {
-          Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
-        },
-      }).then((response) => {
-        alert('삭제되었습니다');
-        getClinicList();
-      });
-    },
-    [clinicItem]
-  );
+  const deleteClinic = (clinicItem) => {
+    axios({
+      method: 'post',
+      url: API_BASE_URL + '/delete',
+      data: clinicItem,
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('ACCESS_TOKEN'),
+      },
+    }).then((response) => {
+      alert('삭제되었습니다');
+      setMyClinicList(
+        myClinicList.filter((item) => item.ykiho !== clinicItem.ykiho)
+      );
+    });
+  };
 
   // clinic 정보 가져옴
   const getClinicInfo = useCallback((y, x) => {
